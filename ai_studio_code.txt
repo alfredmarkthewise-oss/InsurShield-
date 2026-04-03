@@ -1,0 +1,68 @@
+[
+  {
+    "project_id": "INSUR-SHIELD-V4",
+    "developer_spec_version": "2.0.1",
+    "stack_preferences": {
+      "llm": "Gemma-4 (Integrated via Vertex AI or Groq API)",
+      "frontend_framework": "Next.js (App Router)",
+      "ui_design_system": "Linear-style (Minimalist, High-density, Slate/Zinc palette, Keyboard-centric)",
+      "logic_language": "JavaScript / Node.js",
+      "state_management": "Zustand (for local state) & Redis (for Ralphloop persistence)"
+    },
+    "tree_of_thought_architecture": {
+      "root_node": "Input BCBA Treatment Plan / Assessment",
+      "thought_branches": [
+        {
+          "branch_a": "Clinical Validity (SMART goals, baseline data alignment)",
+          "branch_b": "Insurance Heuristics (Medical necessity language, CPT code justification)",
+          "branch_c": "School-Barrier Alignment (Translating academic struggle into behavioral deficits)"
+        }
+      ],
+      "evaluation_heuristic": "Gemma-4 evaluates each branch for 'Denial Triggers' and selects the path with the highest approval probability."
+    },
+    "agentic_harness_and_ralphloop": {
+      "definition": "The 'Ralphloop' is a recursive logic controller that prevents the system from returning an output until the Screening Agent satisfies the Stakeholder Intent.",
+      "execution_steps": [
+        "1. Initialization: Gemma-4 generates a candidate plan based on input data.",
+        "2. Screening Agent: A specialized Gemma-4 instance (Persona: Insurance Auditor) attempts to reject the plan based on vector-stored denial reasons.",
+        "3. Critique & Delta: If rejected, the system identifies the 'Delta' (what is missing/wrong).",
+        "4. Persistence: The Ralphloop restarts at Step 1 with the Delta context.",
+        "5. Termination: Loop exits only when the Screening Agent provides a 'Pass' status (Confidence > 0.98)."
+      ]
+    },
+    "bmad_specification": {
+      "business_layer": {
+        "objective": "Eliminate the 14-day re-submission cycle for school-based BCBA plans.",
+        "stakeholder_intents": [
+          "BCBA: Rapid plan generation that is clinically sound.",
+          "Clinic Owner: Zero unbilled hours due to administrative rejections.",
+          "Payer: Clear evidence of medical necessity and functional improvement."
+        ]
+      },
+      "model_layer": {
+        "engine": "Gemma-4",
+        "agent_configurations": {
+          "drafter": "Focuses on clinical accuracy and intervention strategy.",
+          "scrubber": "Focuses on PHI/PII removal and HIPAA compliance.",
+          "auditor": "Simulates Insurance Carrier screening algorithms using recursive ToT."
+        },
+        "context_window_usage": "Maintains persistent memory of specific insurance provider 'pet peeves' (e.g., 'Do not use the word 'Educational', use 'Functional')."
+      },
+      "application_layer": {
+        "ux_architecture": "Next.js 14 with Server Actions for long-running Ralphloop processes.",
+        "design_elements": "Linear-style issue tracking for each plan rejection reason; Command-K palette for navigation; Real-time loop progress indicator.",
+        "javascript_logic": "Asynchronous loop handlers with WebSockets to stream Gemma-4's thought process to the UI in real-time."
+      },
+      "data_layer": {
+        "storage": "PostgreSQL for plan metadata; Vector DB (Pinecone/Milvus) for insurance policy rules.",
+        "security": "AES-256 encryption at rest; JavaScript-based client-side sanitization of clinical notes before LLM ingestion."
+      }
+    },
+    "dev_team_milestones": {
+      "sprint_1": "Setup Next.js boilerplate with Linear-style Tailwind components.",
+      "sprint_2": "Implement Gemma-4 API integration and the basic Agentic Harness.",
+      "sprint_3": "Develop the Ralphloop logic with Redis-backed state persistence.",
+      "sprint_4": "Build the 'Insurance Screening' vector database and final QA."
+    }
+  }
+]
